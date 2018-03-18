@@ -5,7 +5,7 @@ var randomPoints = require('../lib/rand');
 var mnist = require('../lib/mnist_reader');
 var writer = require('../lib/writer');
 
-/*The function 'distance' is useful for tests, to see if values are converging on 
+/*The function 'distance' is useful for tests, to see if values are converging on
   the correct location for the centroid.
 
   Yes, you can use it for the '_distance' function below if you wish.
@@ -25,7 +25,7 @@ describe('Testing required k-means functionality.', function(){
 		var km = new KMeans();
 		//The array 'points' is the set of vectors with which the algorithm is to be trained.
 		expect(km.points).to.be.empty;
-		//When all the clusters move less than this per training period, k-means stops adjusting							
+		//When all the clusters move less than this per training period, k-means stops adjusting
 		expect(km.minClusterMove !== undefined).to.be.true;
 		expect(typeof km.train).to.equal('function');			//Adds vectors to points
 		expect(typeof km.clusters).to.equal('function');		//Returns a list of centroids
@@ -40,11 +40,11 @@ describe('Testing required k-means functionality.', function(){
 
 	/* As in the prior exercise, the following are functions which might make
 	   the task of writing the function 'clusters' much easier.  But it is
-	   not necessary that you use them in any way.  I suggest that you 
+	   not necessary that you use them in any way.  I suggest that you
 	   look through them in any event, though, to get an idea of the kinds of
 	   functions you will need to write.
 	 */
-	xdescribe('Optional helper functions to help build the k-means algorithm', function(){
+	describe('Optional helper functions to help build the k-means algorithm', function(){
 
 		/* The function '_distance' takes as input two vectors of any length,
 		   and returns the Euclidean norm of the difference between them
@@ -95,13 +95,13 @@ describe('Testing required k-means functionality.', function(){
 		   a way of trying to do so.
 
 		   Note that you would NOT want to use this function in a straightforward way in
-		   '_max' above, because the LOWER the value returned from this the 
+		   '_max' above, because the LOWER the value returned from this the
 		   better the clustering, while '_max' returns the HIGHEST value.  But you could use a function
 		   that calls it.
 
 		   Might want to use '_distance'.
 		*/
-		it('has _clusterEvaluator, which scores clusters according to the average distances from points to centroids in each', function(){
+		it.only('has _clusterEvaluator, which scores clusters according to the average distances from points to centroids in each', function(){
 			var km = new KMeans();
 			expect(typeof km._clusterEvaluator).to.equal('function');
 			expect(km._clusterEvaluator( [[0,0],[100,100]],[[1,0],[0,1],[101,100],[100,101]] ) ).to.equal(4);
@@ -125,7 +125,7 @@ describe('Testing required k-means functionality.', function(){
 			expect(km._averageLocation([[1,10],[1,10],[2,10],[3,10],[3,10]])).to.eql([2,10])
 		});
 
-		/* The following function, '_shiftCentroids', is rather the heart of k-means.  
+		/* The following function, '_shiftCentroids', is rather the heart of k-means.
 
 		   It takes as input (1) an array of centroids, and an (1) array of all the training data.
 		   Each of the elements of these are vectors--that is, simply arrays of numbers.
@@ -175,7 +175,7 @@ describe('Testing required k-means functionality.', function(){
 		/* If you follow the path lined out here, .cluster will return the best cluster
 		   of several iterations of k-means.
 
-		   This function, '_clusters', simply returns a single group of clusters produced by one 
+		   This function, '_clusters', simply returns a single group of clusters produced by one
 		   complete iteration of k-means.  That is, it loops through Lloyd's algorithm until
 		   the centroids have ceased moving or ceased moving by more than a certain amount.
 
@@ -294,12 +294,12 @@ describe('Testing required k-means functionality.', function(){
 	   time to finish.  They produce, however, some data in the folder in which this runs,
 	   which will display grouped members of the clusters produced by the algorithm.
 
-	   In this context, "success" means that the each of the clusters seem to have something in common with 
+	   In this context, "success" means that the each of the clusters seem to have something in common with
 	   each other.  It would be a little too much to hope for, with this rather crude algorithm, to have
 	   all the members of each cluster be the same character.
 
 	   Consider how well the algorith sorts the characters 1 and 0 into separate groups,
-	   as well as the characters 5 and 9, and the characters 4, 6, and 8.  Some 
+	   as well as the characters 5 and 9, and the characters 4, 6, and 8.  Some
 	   of these groupings are "better" than others.  Which and why?
 	*/
 	describe('The algorithm finds centroids for the MNIST data "successfully"', function(){
@@ -341,24 +341,24 @@ describe('Testing required k-means functionality.', function(){
 
 });
 
-/*EXTRA CREDIT: 
+/*EXTRA CREDIT:
 
   As stated in the text of the workshop, there are two distinct clustering
   tasks: (1) determining where a given number of clusters are located in space
   given a particular data set and (2) determining how many clusters are located
-  in a given space, given a particular dataset.  All of the above pertains to 
+  in a given space, given a particular dataset.  All of the above pertains to
   the first task.  The extra credit pertains to the second.
 
-  The basic task is to write an additional function, 'findClusters', which can 
+  The basic task is to write an additional function, 'findClusters', which can
   determine how many clusters are in a given set of data.  The tests below start
   out with very obvious separations of clusters (i.e., two clumps of data which
   are very, very far apart) and continue on to much more difficult separations.
 
   The basic strategy that you'll want to follow is to use the existing 'clusters'
-  function to find the best set of 1, 2, 3... k clusters.  Each of these will 
-  almost certainly have a smaller average centroid-training point distance than 
+  function to find the best set of 1, 2, 3... k clusters.  Each of these will
+  almost certainly have a smaller average centroid-training point distance than
   the prior--this would be true even if the data were completely randomly
-  distributed without any structure at all.  However, if there are clusters in the 
+  distributed without any structure at all.  However, if there are clusters in the
   data, then the rate at which the average centroid-training point distance decreases
   will drop once you've run out of clusters.
 
@@ -380,7 +380,7 @@ xdescribe('Testing optional k-means functionality', function(){
 		/* The function 'findClusters' should take a number, which is the maximum
 		   number of clusters it should search for.
 
-		   It should return an array of centroids, just like 'clusters', but 
+		   It should return an array of centroids, just like 'clusters', but
 		   the array should have anything from 1 to the input number
 		   centroids in it, depending on the most natural way to split
 		   the data.

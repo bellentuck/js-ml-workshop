@@ -4,7 +4,7 @@
   "description": "A simple machine learning workshop.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha 001_knn/knn_specs.js"
+    "test": "mocha 002_kmeans/kmeans_specs.js"
   },
   "author": "James Tillman <james.tillman.7@gmail.com>",
   "license": "ISC",
